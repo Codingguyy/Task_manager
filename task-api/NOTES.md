@@ -20,3 +20,4 @@
 - Is there any auth/authorization planned? Right now anyone who can reach the API can create, edit,delete,or assign any task.
 - Is the in-memory store intentional for now (e.g. this is a prototype),or is a real database expected before this goes live?Losing all data on every restart seems fine for a take-home but not for production.
 - For `/assign`,should a task support multiple assignees,or is one name always enough?I assumed one for now.
+- For `/assign`, I allowed reassigning an already-assigned task without any restriction — the new assignee just overwrites the old one. Didn't add a "must unassign first" rule since nothing in the brief called for it, but that's a product decision worth confirming.
