@@ -95,6 +95,29 @@ describe('DELETE /tasks/:id',()=>{
     expect(res.status).toBe(404);
   });
 });
+describe('PATCH /tasks/:id/assign',()=>{
+  it('assigns a task and returns it with the assignee set',async()=>{
+    const created=await request(app).post('/tasks').send({title:'X'});
+    const res=await request(app)
+      .patch(`/tasks/${created.body.id}/assign`)
+      .send({assignee:'John'});
+    expect(res.status).toBe(200);
+    expect(res.body.assignee).toBe('John');
+  });
+  it('returns 404 for an unknown id',async()=>{
+    const res=await request(app)
+      .patch('/tasks/does-not-exist/assign')
+      .send({assignee:'John'});
+    expect(res.status).toBe(404);
+  });
+  it('returns 400 for an empty assignee',async()=>{
+    const created=await request(app).post('/tasks').send({title:'X'});
+    const res=await request(app)
+      .patch(`/tasks/${created.body.id}/assign`)
+      .send({assignee:''});
+    expect(res.status).toBe(400);
+  });
+});
 describe('PATCH /tasks/:id/complete',()=>{
   it('marks a task as complete',async()=>{
     const created=await request(app).post('/tasks').send({title:'X'});
