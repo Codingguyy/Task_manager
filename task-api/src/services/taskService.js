@@ -98,5 +98,4 @@ module.exports = {
   remove,
   completeTask,
   assignTask
-  _reset,
 };
