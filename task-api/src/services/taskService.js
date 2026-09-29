@@ -75,10 +75,6 @@ const completeTask = (id) => {
   tasks[index] = updated;
   return updated;
 };
-
-const _reset = () => {
-  tasks = [];
-};
 const assignTask=(id,assignee)=>{
   const task=findById(id);
   if (!task) return null;
