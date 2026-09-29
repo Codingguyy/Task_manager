@@ -170,6 +170,27 @@ describe('completeTask',()=>{
     expect(taskService.completeTask('nope')).toBeNull();
   });
 });
+describe('assignTask',()=>{
+  it('sets the assignee on the task',()=>{
+    const task=make();
+    const updated=taskService.assignTask(task.id, 'John');
+    expect(updated.assignee).toBe('John');
+  });
+  it('saves the change in the store',()=>{
+    const task=make();
+    taskService.assignTask(task.id,'John');
+    expect(taskService.findById(task.id).assignee).toBe('John');
+  });
+  it('returns null for an unknown id',()=>{
+    expect(taskService.assignTask('nope','John')).toBeNull();
+  });
+  it('does not change any other field',()=>{
+    const task=make({title:'Keep me',priority:'high'});
+    const updated=taskService.assignTask(task.id,'John');
+    expect(updated.title).toBe('Keep me');
+    expect(updated.priority).toBe('high');
+  });
+});
 // Bugs
 describe('known bugs in taskService',()=>{
   it('getPaginated:page 1 should return the FIRST items',()=>{
